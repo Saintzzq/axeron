@@ -774,7 +774,7 @@ function library:Introduction()
     hashLogo.ImageColor3 = Color3.fromRGB(255, 0, 0)
     hashLogo.ImageTransparency = 1
     
-    xsx.Name = "xsx"
+    xsx.Name = "text"
     xsx.Parent = background
     xsx.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     xsx.BackgroundTransparency = 1.000
@@ -785,18 +785,20 @@ function library:Introduction()
     xsx.TextSize = 10.000
     xsx.TextTransparency = 1
     
-    text.Name = "text"
+    text.Name = "slsl"
     text.Parent = background
     text.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
     text.BackgroundTransparency = 1.000
-    text.Position = UDim2.new(Center)
-    text.Size = UDim2.new(0, 26, 0, 21)
+    text.Position = UDim2.new(0.5, 0, 0.5, 0) -- Centraliza horizontal e verticalmente
+    text.AnchorPoint = Vector2.new(0.5, 0.5) -- Define o ponto de âncora para o centro
+    text.Size = UDim2.new(0, 200, 0, 21) -- Ajuste a largura conforme necessário
     text.Font = Enum.Font.Code
-    text.Text = "Coded by Saintzada"
+    text.Text = "Loading Please Wait..."
     text.TextColor3 = Color3.fromRGB(124, 124, 124)
     text.TextSize = 10.000
     text.TextTransparency = 1
     text.RichText = true
+    
     
     pageLayout.Name = "pageLayout"
     pageLayout.Parent = introduction
