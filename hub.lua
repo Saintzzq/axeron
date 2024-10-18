@@ -758,7 +758,7 @@ function library:Introduction()
     xsxLogo.Position = UDim2.new(0.5, 0, 0.5, 0)
     xsxLogo.Size = UDim2.new(0, 448, 0, 150)
     xsxLogo.Visible = true
-    xsxLogo.Image = "https://github.com/faelcanalha/gosth-landing-page-react/blob/master/public/imgs/logo.png?raw=true"
+    xsxLogo.Image = "https://i.ibb.co/x1QQq9Y/logo.png"
     xsxLogo.ImageColor3 = Color3.fromRGB(159, 115, 255)
     xsxLogo.ImageTransparency = 1
     
@@ -770,7 +770,7 @@ function library:Introduction()
     hashLogo.Position = UDim2.new(0.5, 0, 0.5, 0)
     hashLogo.Size = UDim2.new(0, 150, 0, 150)
     hashLogo.Visible = true
-    hashLogo.Image = "https://github.com/faelcanalha/gosth-landing-page-react/blob/master/public/imgs/panel.png?raw=true"
+    hashLogo.Image = "https://i.ibb.co/x1QQq9Y/logo.png"
     hashLogo.ImageColor3 = Color3.fromRGB(159, 115, 255)
     hashLogo.ImageTransparency = 1
     
