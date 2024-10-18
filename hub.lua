@@ -519,160 +519,174 @@ function library:InitNotifications(text, duration, callback)
     notificationsPadding.PaddingTop = UDim.new(0, 18)
 
     local Notification = {}
-    function Notification:Notify(text, duration, type, callback)
-        
-        CreateTween("notification_load", 0.2)
+local isNotificationActive = false -- Variável para controlar se uma notificação está ativa
 
-        text = text or "please wait."
-        duration = duration or 5
-        type = type or "notification"
-        callback = callback or function() end
+function Notification:Notify(text, duration, type, callback)
+    if isNotificationActive then
+        return -- Se já existe uma notificação ativa, não faz nada
+    end
 
-        local edge = Instance.new("Frame")
-        local edgeCorner = Instance.new("UICorner")
-        local background = Instance.new("Frame")
-        local barFolder = Instance.new("Folder")
-        local bar = Instance.new("Frame")
-        local barCorner = Instance.new("UICorner")
-        local barLayout = Instance.new("UIListLayout")
-        local backgroundGradient = Instance.new("UIGradient")
-        local backgroundCorner = Instance.new("UICorner")
-        local notifText = Instance.new("TextLabel")
-        local notifPadding = Instance.new("UIPadding")
-        local backgroundLayout = Instance.new("UIListLayout")
-    
-        edge.Name = "edge"
-        edge.Parent = Notifications
-        edge.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
-        edge.BackgroundTransparency = 1.000
-        edge.Size = UDim2.new(0, 0, 0, 26)
-    
-        edgeCorner.CornerRadius = UDim.new(0, 2)
-        edgeCorner.Name = "edgeCorner"
-        edgeCorner.Parent = edge
-    
-        background.Name = "background"
-        background.Parent = edge
-        background.AnchorPoint = Vector2.new(0.5, 0.5)
-        background.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        background.BackgroundTransparency = 1.000
-        background.ClipsDescendants = true
-        background.Position = UDim2.new(0.5, 0, 0.5, 0)
-        background.Size = UDim2.new(0, 0, 0, 24)
-    
-        barFolder.Name = "barFolder"
-        barFolder.Parent = background
-    
-        bar.Name = "bar"
-        bar.Parent = barFolder
+    isNotificationActive = true -- Marca que uma notificação está ativa
+
+    CreateTween("notification_load", 0.2)
+
+    text = text or "please wait."
+    duration = duration or 5
+    type = type or "notification"
+    callback = callback or function() end
+
+    local edge = Instance.new("Frame")
+    local edgeCorner = Instance.new("UICorner")
+    local background = Instance.new("Frame")
+    local barFolder = Instance.new("Folder")
+    local bar = Instance.new("Frame")
+    local barCorner = Instance.new("UICorner")
+    local barLayout = Instance.new("UIListLayout")
+    local backgroundGradient = Instance.new("UIGradient")
+    local backgroundCorner = Instance.new("UICorner")
+    local notifText = Instance.new("TextLabel")
+    local notifPadding = Instance.new("UIPadding")
+    local backgroundLayout = Instance.new("UIListLayout")
+
+    edge.Name = "edge"
+    edge.Parent = Notifications
+    edge.BackgroundColor3 = Color3.fromRGB(60, 60, 60)
+    edge.BackgroundTransparency = 1.000
+    edge.Size = UDim2.new(0, 0, 0, 26)
+
+    edgeCorner.CornerRadius = UDim.new(0, 2)
+    edgeCorner.Name = "edgeCorner"
+    edgeCorner.Parent = edge
+
+    background.Name = "background"
+    background.Parent = edge
+    background.AnchorPoint = Vector2.new(0.5, 0.5)
+    background.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    background.BackgroundTransparency = 1.000
+    background.ClipsDescendants = true
+    background.Position = UDim2.new(0.5, 0, 0.5, 0)
+    background.Size = UDim2.new(0, 0, 0, 24)
+
+    barFolder.Name = "barFolder"
+    barFolder.Parent = background
+
+    bar.Name = "bar"
+    bar.Parent = barFolder
+    bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    bar.BackgroundTransparency = 0.200
+    bar.Size = UDim2.new(0, 0, 0, 1)
+
+    -- Define a cor da barra de acordo com o tipo
+    if type == "notification" then
         bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        bar.BackgroundTransparency = 0.200
-        bar.Size = UDim2.new(0, 0, 0, 1)
-        if type == "notification" then
-            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        elseif type == "alert" then
-            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        elseif type == "error" then
-            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        elseif type == "success" then
-            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        elseif type == "information" then
-            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
-        end
-    
-        barCorner.CornerRadius = UDim.new(0, 2)
-        barCorner.Name = "barCorner"
-        barCorner.Parent = bar
-    
-        barLayout.Name = "barLayout"
-        barLayout.Parent = barFolder
-        barLayout.SortOrder = Enum.SortOrder.LayoutOrder
-    
-        backgroundGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(34, 34, 34)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(28, 28, 28))}
-        backgroundGradient.Rotation = 90
-        backgroundGradient.Name = "backgroundGradient"
-        backgroundGradient.Parent = background
-    
-        backgroundCorner.CornerRadius = UDim.new(0, 2)
-        backgroundCorner.Name = "backgroundCorner"
-        backgroundCorner.Parent = background
-    
-        notifText.Name = "notifText"
-        notifText.Parent = background
-        notifText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
-        notifText.BackgroundTransparency = 1.000
-        notifText.Size = UDim2.new(0, 230, 0, 26)
-        notifText.Font = Enum.Font.Code
-        notifText.Text = text
-        notifText.TextColor3 = Color3.fromRGB(198, 198, 198)
-        notifText.TextSize = 14.000
-        notifText.TextTransparency = 1.000
-        notifText.TextXAlignment = Enum.TextXAlignment.Left
-        notifText.RichText = true
-    
-        notifPadding.Name = "notifPadding"
-        notifPadding.Parent = notifText
-        notifPadding.PaddingBottom = UDim.new(0, 4)
-        notifPadding.PaddingLeft = UDim.new(0, 4)
-        notifPadding.PaddingRight = UDim.new(0, 4)
-        notifPadding.PaddingTop = UDim.new(0, 4)
-    
-        backgroundLayout.Name = "backgroundLayout"
-        backgroundLayout.Parent = background
-        backgroundLayout.SortOrder = Enum.SortOrder.LayoutOrder
-        backgroundLayout.VerticalAlignment = Enum.VerticalAlignment.Center
-    
-        local NewSize = TextService:GetTextSize(notifText.Text, notifText.TextSize, notifText.Font, Vector2.new(math.huge, math.huge))
-        CreateTween("notification_wait", duration, Enum.EasingStyle.Quad)
-        local IsRunning = false
-        coroutine.wrap(function()
-            IsRunning = true
-            TweenService:Create(edge, TweenTable["notification_load"], {BackgroundTransparency = 0}):Play()
-            TweenService:Create(background, TweenTable["notification_load"], {BackgroundTransparency = 0}):Play()
-            TweenService:Create(notifText, TweenTable["notification_load"], {TextTransparency = 0}):Play()
+    elseif type == "alert" then
+        bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    elseif type == "error" then
+        bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    elseif type == "success" then
+        bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    elseif type == "information" then
+        bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
+    end
+
+    barCorner.CornerRadius = UDim.new(0, 2)
+    barCorner.Name = "barCorner"
+    barCorner.Parent = bar
+
+    barLayout.Name = "barLayout"
+    barLayout.Parent = barFolder
+    barLayout.SortOrder = Enum.SortOrder.LayoutOrder
+
+    backgroundGradient.Color = ColorSequence.new{
+        ColorSequenceKeypoint.new(0.00, Color3.fromRGB(34, 34, 34)),
+        ColorSequenceKeypoint.new(1.00, Color3.fromRGB(28, 28, 28))
+    }
+    backgroundGradient.Rotation = 90
+    backgroundGradient.Name = "backgroundGradient"
+    backgroundGradient.Parent = background
+
+    backgroundCorner.CornerRadius = UDim.new(0, 2)
+    backgroundCorner.Name = "backgroundCorner"
+    backgroundCorner.Parent = background
+
+    notifText.Name = "notifText"
+    notifText.Parent = background
+    notifText.BackgroundColor3 = Color3.fromRGB(255, 255, 255)
+    notifText.BackgroundTransparency = 1.000
+    notifText.Size = UDim2.new(0, 230, 0, 26)
+    notifText.Font = Enum.Font.Code
+    notifText.Text = text
+    notifText.TextColor3 = Color3.fromRGB(198, 198, 198)
+    notifText.TextSize = 14.000
+    notifText.TextTransparency = 1.000
+    notifText.TextXAlignment = Enum.TextXAlignment.Left
+    notifText.RichText = true
+
+    notifPadding.Name = "notifPadding"
+    notifPadding.Parent = notifText
+    notifPadding.PaddingBottom = UDim.new(0, 4)
+    notifPadding.PaddingLeft = UDim.new(0, 4)
+    notifPadding.PaddingRight = UDim.new(0, 4)
+    notifPadding.PaddingTop = UDim.new(0, 4)
+
+    backgroundLayout.Name = "backgroundLayout"
+    backgroundLayout.Parent = background
+    backgroundLayout.SortOrder = Enum.SortOrder.LayoutOrder
+    backgroundLayout.VerticalAlignment = Enum.VerticalAlignment.Center
+
+    local NewSize = TextService:GetTextSize(notifText.Text, notifText.TextSize, notifText.Font, Vector2.new(math.huge, math.huge))
+    CreateTween("notification_wait", duration, Enum.EasingStyle.Quad)
+
+    coroutine.wrap(function()
+        TweenService:Create(edge, TweenTable["notification_load"], {BackgroundTransparency = 0}):Play()
+        TweenService:Create(background, TweenTable["notification_load"], {BackgroundTransparency = 0}):Play()
+        TweenService:Create(notifText, TweenTable["notification_load"], {TextTransparency = 0}):Play()
+        TweenService:Create(edge, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 10, 0, 26)}):Play()
+        TweenService:Create(background, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 8, 0, 24)}):Play()
+        TweenService:Create(notifText, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 8, 0, 24)}):Play()
+        wait()
+        TweenService:Create(bar, TweenTable["notification_wait"], {Size = UDim2.new(0, NewSize.X + 8, 0, 1)}):Play()
+        repeat wait() until bar.Size == UDim2.new(0, NewSize.X + 8, 0, 1)
+
+        TweenService:Create(edge, TweenTable["notification_load"], {BackgroundTransparency = 1}):Play()
+        TweenService:Create(background, TweenTable["notification_load"], {BackgroundTransparency = 1}):Play()
+        TweenService:Create(notifText, TweenTable["notification_load"], {TextTransparency = 1}):Play()
+        TweenService:Create(bar, TweenTable["notification_load"], {BackgroundTransparency = 1}):Play()
+        TweenService:Create(edge, TweenTable["notification_load"], {Size = UDim2.new(0, 0, 0, 26)}):Play()
+        TweenService:Create(background, TweenTable["notification_load"], {Size = UDim2.new(0, 0, 0, 24)}):Play()
+        TweenService:Create(notifText, TweenTable["notification_load"], {Size = UDim2.new(0, 0, 0, 24)}):Play()
+        TweenService:Create(bar, TweenTable["notification_load"], {Size = UDim2.new(0, 0, 0, 1)}):Play()
+        wait(.2)
+        edge:Destroy()
+        
+        isNotificationActive = false -- Marque como inativa após a notificação ser exibida
+    end)()
+
+    CreateTween("notification_reset", 0.4)
+    local NotificationFunctions = {}
+    function NotificationFunctions:Text(new)
+        new = new or text
+        notifText.Text = new
+
+        NewSize = TextService:GetTextSize(notifText.Text, notifText.TextSize, notifText.Font, Vector2.new(math.huge, math.huge))
+        if isNotificationActive then
             TweenService:Create(edge, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 10, 0, 26)}):Play()
             TweenService:Create(background, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 8, 0, 24)}):Play()
             TweenService:Create(notifText, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 8, 0, 24)}):Play()
             wait()
+            TweenService:Create(bar, TweenTable["notification_reset"], {Size = UDim2.new(0, 0, 0, 1)}):Play()
+            wait(.4)
             TweenService:Create(bar, TweenTable["notification_wait"], {Size = UDim2.new(0, NewSize.X + 8, 0, 1)}):Play()
-            repeat wait() until bar.Size == UDim2.new(0, NewSize.X + 8, 0, 1)
-            IsRunning = false
-            TweenService:Create(edge, TweenTable["notification_load"], {BackgroundTransparency = 1}):Play()
-            TweenService:Create(background, TweenTable["notification_load"], {BackgroundTransparency = 1}):Play()
-            TweenService:Create(notifText, TweenTable["notification_load"], {TextTransparency = 1}):Play()
-            TweenService:Create(bar, TweenTable["notification_load"], {BackgroundTransparency = 1}):Play()
-            TweenService:Create(edge, TweenTable["notification_load"], {Size = UDim2.new(0, 0, 0, 26)}):Play()
-            TweenService:Create(background, TweenTable["notification_load"], {Size = UDim2.new(0, 0, 0, 24)}):Play()
-            TweenService:Create(notifText, TweenTable["notification_load"], {Size = UDim2.new(0, 0, 0, 24)}):Play()
-            TweenService:Create(bar, TweenTable["notification_load"], {Size = UDim2.new(0, 0, 0, 1)}):Play()
-            wait(.2)
-            edge:Destroy()
-        end)()
-
-        CreateTween("notification_reset", 0.4)
-        local NotificationFunctions = {}
-        function NotificationFunctions:Text(new)
-            new = new or text
-            notifText.Text = new
-
-            NewSize = TextService:GetTextSize(notifText.Text, notifText.TextSize, notifText.Font, Vector2.new(math.huge, math.huge))
-            local NewSize_2 = NewSize
-            if IsRunning then
-                TweenService:Create(edge, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 10, 0, 26)}):Play()
-                TweenService:Create(background, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 8, 0, 24)}):Play()
-                TweenService:Create(notifText, TweenTable["notification_load"], {Size = UDim2.new(0, NewSize.X + 8, 0, 24)}):Play()
-                wait()
-                TweenService:Create(bar, TweenTable["notification_reset"], {Size = UDim2.new(0, 0, 0, 1)}):Play()
-                wait(.4)
-                TweenService:Create(bar, TweenTable["notification_wait"], {Size = UDim2.new(0, NewSize.X + 8, 0, 1)}):Play()
-            end
-
-            return NotificationFunctions
         end
+
         return NotificationFunctions
     end
-    return Notification
+
+    return NotificationFunctions
 end
+
+return Notification
+
 
 function library:Introduction()
     for _,v in next, CoreGuiService:GetChildren() do
