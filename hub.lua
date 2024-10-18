@@ -795,7 +795,7 @@ function library:Introduction()
     text.Font = Enum.Font.Code
     text.Text = "Loading Please Wait..."
     text.TextColor3 = Color3.fromRGB(124, 124, 124)
-    text.TextSize = 50
+    text.TextSize = 20
     text.TextTransparency = 1
     text.RichText = true
     
