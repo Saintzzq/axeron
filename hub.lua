@@ -571,13 +571,13 @@ function library:InitNotifications(text, duration, callback)
         if type == "notification" then
             bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
         elseif type == "alert" then
-            bar.BackgroundColor3 = Color3.fromRGB(255, 246, 112)
+            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
         elseif type == "error" then
-            bar.BackgroundColor3 = Color3.fromRGB(255, 74, 77)
+            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
         elseif type == "success" then
-            bar.BackgroundColor3 = Color3.fromRGB(131, 255, 103)
+            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
         elseif type == "information" then
-            bar.BackgroundColor3 = Color3.fromRGB(126, 117, 255)
+            bar.BackgroundColor3 = Color3.fromRGB(255, 0, 0)
         end
     
         barCorner.CornerRadius = UDim.new(0, 2)
@@ -1626,7 +1626,7 @@ function library:Init(key)
             toggleDesignCorner.Name = "toggleDesignCorner"
             toggleDesignCorner.Parent = toggleDesign
 
-            toggleDesignGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(157, 115, 255)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(106, 69, 181))}
+            toggleDesignGradient.Color = ColorSequence.new{ColorSequenceKeypoint.new(0.00, Color3.fromRGB(255, 0, 0)), ColorSequenceKeypoint.new(1.00, Color3.fromRGB(181, 69, 69))}
             toggleDesignGradient.Rotation = 90
             toggleDesignGradient.Name = "toggleDesignGradient"
             toggleDesignGradient.Parent = toggleDesign
